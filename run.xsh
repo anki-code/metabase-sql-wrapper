@@ -1,7 +1,6 @@
 #!/usr/bin/env xonsh
 
-import subprocess, signal, sys
-from xonsh.tools import print_color
+import subprocess, signal
 
 class Process:
     """
@@ -18,7 +17,7 @@ class Process:
         proc.wait()
 
     def proc_terminate(self, signum, frame):
-        print_color(f'CATCH: signum={signum}, stopping the process...')
+        echo @(f'*** CATCH: signum={signum}, stopping the process...')
         self.proc.terminate()
         self.stop_now = True
 
