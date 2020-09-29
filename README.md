@@ -1,1 +1,41 @@
-# metabase-sql-wrapper
+**metabase-sql-wrapper** is a docker-container based on Metabase container that automatically saves Metabase H2 database
+to SQL-file (on container stop) and creates Metabase H2 database from SQL-file if the database doesn't exists. 
+
+This allow to save the Metabase H2 database SQL-file to Git, versioning changes and restore the database from SQL-file.
+
+## Run container
+```shell script
+git clone https://github.com/anki-code/metabase-sql-wrapper
+cd metabase-sql-wrapper
+docker-compose up
+```
+
+## How it works
+
+1. `docker-compose.yml` file has environment variables:
+
+    ```shell script
+    MB_DB_FILE: /data/metabase
+    MB_DB_INIT_SQL_FILE: /data/metabase.db.sql     # (optional) used to build the DB if MB_DB_FILE doesn't exists 
+    MB_DB_SAVE_TO_SQL_FILE: /data/metabase.db.sql  # (optional) used to save SQL when container was stopped
+    ```
+
+2. `docker-compose up` runs `run.xsh` with [xonsh shell](https://xon.sh/contents.html) wrapper that catches 
+the docker signals and environment variables and do saving or creating the Metabase DB after stopping 
+or before starting the container.
+
+3. If `MB_DB_INIT_SQL_FILE` is set and `MB_DB_FILE` directory doesn't exists then before running Metabse 
+the database will be created from the SQL-file.
+
+4. If `MB_DB_SAVE_TO_SQL_FILE` is set and the container will get stop/restart signal then the database will be saved 
+to SQL-file after Metabase has been stopped.
+
+This way you can run container, save your queries to Metabase, stop the container and commit it to Git.
+
+## Future
+
+Add optional cleaning the database before save (`metabase-db-clean.sql`)
+
+## Links
+
+* This container based on [docker-xonsh-wrapper](https://github.com/anki-code/docker-xonsh-wrapper)

@@ -1,0 +1,12 @@
+version: '3'
+services:
+  metabase-sql-wrapper:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - ./data:/data
+    environment:
+      MB_DB_FILE: /data/metabase
+      MB_DB_INIT_SQL_FILE: /data/metabase.db.sql
+      MB_DB_SAVE_TO_SQL_FILE: /data/metabase.db.sql
