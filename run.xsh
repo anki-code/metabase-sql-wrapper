@@ -31,10 +31,10 @@ if __name__ == '__main__':
 
     metabase_db_path_exists = metabase_db_path.exists()
     if metabase_db_path_exists:
-        echo @ (f'*** Metabase DB path: {metabase_db_path}')
+        echo @(f'*** Metabase DB path: {metabase_db_path}')
     else:
         mkdir -p @(metabase_db_path)
-        echo @ (f'*** Metabase DB path created: {metabase_db_path}')
+        echo @(f'*** Metabase DB path created: {metabase_db_path}')
 
     metabase_db_file = metabase_db_path / metabase_db_path.name
 
