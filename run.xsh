@@ -30,11 +30,13 @@ if __name__ == '__main__':
     metabase_db_path = fp'{metabase_db_path}'
 
     metabase_db_path_exists = metabase_db_path.exists()
-    if not metabase_db_path_exists:
+    if metabase_db_path_exists:
+        echo @ (f'*** Metabase DB path: {metabase_db_path}')
+    else:
         mkdir -p @(metabase_db_path)
+        echo @ (f'*** Metabase DB path created: {metabase_db_path}')
 
     metabase_db_file = metabase_db_path / metabase_db_path.name
-    echo @(f'*** Metabase DB path: {metabase_db_path}')
 
     init_sql_file = ${...}.get('MB_DB_INIT_SQL_FILE')
 
