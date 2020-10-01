@@ -33,30 +33,30 @@ if __name__ == '__main__':
     $MB_DB_FILE = $MB_DB_PATH / $MB_DB_PATH.name
 
     if $MB_DB_PATH.exists():
-        echo @(f'*** Metabase DB path: {$MB_DB_PATH}')
+        echo '*** Metabase DB path: $MB_DB_PATH'
         db_path_exists = True
     else:
         if ![mkdir -p $MB_DB_PATH]:
-            echo @(f'*** Metabase DB path created: {$MB_DB_PATH}')
+            echo '*** Metabase DB path created: $MB_DB_PATH'
             db_path_exists = False
         else:
             exit(1)
 
     if $MB_DB_INIT_SQL_FILE and $MB_DB_INIT_SQL_FILE.exists():
         if db_path_exists:
-            echo @(f'*** Database path {$MB_DB_PATH} exists, SKIP creating database from {$MB_DB_INIT_SQL_FILE}')
+            echo '*** Database path $MB_DB_PATH exists, SKIP creating database from $MB_DB_INIT_SQL_FILE'
         else:
-            echo @(f'*** Create database {$MB_DB_FILE} from {$MB_DB_INIT_SQL_FILE}')
+            echo '*** Create database $MB_DB_FILE from $MB_DB_INIT_SQL_FILE'
             java -cp $MB_JAR org.h2.tools.RunScript -url jdbc:h2:$MB_DB_FILE -script $MB_DB_INIT_SQL_FILE
             echo '*** Creating DONE'
     else:
-        echo @(f'*** MB_DB_INIT_SQL_FILE {$MB_DB_INIT_SQL_FILE} not found, SKIP')
+        echo '*** MB_DB_INIT_SQL_FILE $MB_DB_INIT_SQL_FILE not found, SKIP'
 
     p = Process('/app/run_metabase.sh')
 
     if $MB_DB_SAVE_TO_SQL_FILE:
-        echo @(f'*** Saving database {$MB_DB_FILE} to {$MB_DB_SAVE_TO_SQL_FILE}')
+        echo '*** Saving database $MB_DB_FILE to $MB_DB_SAVE_TO_SQL_FILE'
         java -cp $MB_JAR org.h2.tools.Script -url jdbc:h2:$MB_DB_FILE -script $MB_DB_SAVE_TO_SQL_FILE
-        echo @('*** Saving DONE')
+        echo '*** Saving DONE'
     else:
-        echo @(f'*** MB_DB_SAVE_TO_SQL_FILE not found, SKIP')
+        echo '*** MB_DB_SAVE_TO_SQL_FILE not found, SKIP'
