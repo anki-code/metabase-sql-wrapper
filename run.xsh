@@ -24,36 +24,39 @@ class Process:
 if __name__ == '__main__':
     echo '*** Metabase SQL wrapper [https://github.com/anki-code/metabase-sql-wrapper]'
 
-    metabase_jar = '/app/metabase.jar'
+    env = __xonsh__.env
+    env.register('MB_JAR', 'path', default='/app/metabase.jar')
+    env.register('MB_DB_PATH', 'path', default='/data/metabase')
+    env.register('MB_DB_INIT_SQL_FILE', 'path')
+    env.register('MB_DB_SAVE_TO_SQL_FILE', 'path')
 
-    metabase_db_path = ${...}.get('MB_DB_FILE', '/data/metabase')
-    metabase_db_path = fp'{metabase_db_path}'
+    $MB_DB_FILE = $MB_DB_PATH / $MB_DB_PATH.name
 
-    metabase_db_path_exists = metabase_db_path.exists()
-    if metabase_db_path_exists:
-        echo @(f'*** Metabase DB path: {metabase_db_path}')
+    if $MB_DB_PATH.exists():
+        echo @(f'*** Metabase DB path: {$MB_DB_PATH}')
+        db_path_exists = True
     else:
-        mkdir -p @(metabase_db_path)
-        echo @(f'*** Metabase DB path created: {metabase_db_path}')
-
-    metabase_db_file = metabase_db_path / metabase_db_path.name
-
-    init_sql_file = ${...}.get('MB_DB_INIT_SQL_FILE')
-
-    if pf'{init_sql_file}'.exists():
-        if metabase_db_path_exists:
-            echo @(f'*** Database path {metabase_db_path} exists, SKIP creating database from {init_sql_file}')
+        if ![mkdir -p $MB_DB_PATH]:
+            echo @(f'*** Metabase DB path created: {$MB_DB_PATH}')
+            db_path_exists = False
         else:
-            echo @(f'*** Create database {metabase_db_file} from {init_sql_file}')
-            java -cp @(metabase_jar) org.h2.tools.RunScript -url jdbc:h2:@(metabase_db_file) -script @(init_sql_file)
+            exit(1)
+
+    if $MB_DB_INIT_SQL_FILE and $MB_DB_INIT_SQL_FILE.exists():
+        if db_path_exists:
+            echo @(f'*** Database path {$MB_DB_PATH} exists, SKIP creating database from {$MB_DB_INIT_SQL_FILE}')
+        else:
+            echo @(f'*** Create database {$MB_DB_FILE} from {$MB_DB_INIT_SQL_FILE}')
+            java -cp $MB_JAR org.h2.tools.RunScript -url jdbc:h2:$MB_DB_FILE -script $MB_DB_INIT_SQL_FILE
             echo '*** Creating DONE'
     else:
-        echo @(f'*** MB_DB_INIT_SQL_FILE {init_sql_file} not found, SKIP')
+        echo @(f'*** MB_DB_INIT_SQL_FILE {$MB_DB_INIT_SQL_FILE} not found, SKIP')
 
     p = Process('/app/run_metabase.sh')
 
-    save_sql_file = ${...}.get('MB_DB_SAVE_TO_SQL_FILE')
-    if save_sql_file:
-        echo @(f'*** Saving database {metabase_db_file} to {save_sql_file}')
-        java -cp @(metabase_jar) org.h2.tools.Script -url jdbc:h2:@(metabase_db_file) -script @(save_sql_file)
+    if $MB_DB_SAVE_TO_SQL_FILE:
+        echo @(f'*** Saving database {$MB_DB_FILE} to {$MB_DB_SAVE_TO_SQL_FILE}')
+        java -cp $MB_JAR org.h2.tools.Script -url jdbc:h2:$MB_DB_FILE -script $MB_DB_SAVE_TO_SQL_FILE
         echo @('*** Saving DONE')
+    else:
+        echo @(f'*** MB_DB_SAVE_TO_SQL_FILE not found, SKIP')

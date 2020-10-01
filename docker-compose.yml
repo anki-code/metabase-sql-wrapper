@@ -7,6 +7,6 @@ services:
     volumes:
       - ./data:/data
     environment:
-      MB_DB_FILE: /data/metabase
+      MB_DB_PATH: /data/metabase
       MB_DB_INIT_SQL_FILE: /data/metabase.db.sql
       MB_DB_SAVE_TO_SQL_FILE: /data/metabase.db.sql
