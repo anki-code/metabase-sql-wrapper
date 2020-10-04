@@ -22,11 +22,11 @@ class Process:
         self.stop_now = True
 
 if __name__ == '__main__':
-    echo '*** Metabase SQL wrapper [https://github.com/anki-code/metabase-sql-wrapper]'
+    echo '*** Metabase SQL wrapper - https://github.com/anki-code/metabase-sql-wrapper'
 
     env = __xonsh__.env
-    env.register('MB_JAR', 'path', default='/app/metabase.jar')
-    env.register('MB_DB_PATH', 'path', default='/data/metabase')
+    env.register('MB_JAR', 'path', default=p'/app/metabase.jar')
+    env.register('MB_DB_PATH', 'path', default=p'/data/metabase')
     env.register('MB_DB_INIT_SQL_FILE', 'path')
     env.register('MB_DB_SAVE_TO_SQL_FILE', 'path')
 
