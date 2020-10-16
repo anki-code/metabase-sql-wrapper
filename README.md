@@ -32,9 +32,13 @@ to SQL-file after Metabase has been stopped.
 
 This way you can run container, save your queries to Metabase, stop the container and commit it to Git.
 
-## Future
+## Cleaning the database before commit to Git
 
-Add optional cleaning the database before save (`metabase-db-clean.sql`)
+By default Metabase writes logs and history to the database. To clean this before commit to Git you can 
+use the `metabase-db-clean.sql` script:
+```bash
+java -cp metabase.jar org.h2.tools.RunScript -url jdbc:h2:./metabase.db -script /path/to/repository/metabase-db-clean.sql
+```
 
 ## Links
 
