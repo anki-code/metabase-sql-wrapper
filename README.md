@@ -3,6 +3,10 @@ to SQL-file (on container stop) and creates Metabase H2 database from SQL-file (
 
 This allows to save the Metabase H2 database SQL-file to Git, versioning changes and restore the database from SQL-file.
 
+<p align="center">  
+If you like the idea of xxh click ⭐ on the repo and stay tuned.
+</p>
+
 ## Run container
 ```shell script
 git clone https://github.com/anki-code/metabase-sql-wrapper
