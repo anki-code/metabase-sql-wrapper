@@ -4,7 +4,7 @@ to SQL-file (on container stop) and creates Metabase H2 database from SQL-file (
 </p>
 
 <p align="center">
-This allows to save the Metabase H2 database SQL-file to Git, versioning changes and restore the database from SQL-file.
+This allows to save the Metabase H2 database SQL-file to Git, versioning changes<br> and restore the database from SQL-file.
 </p>
 
 <p align="center">
