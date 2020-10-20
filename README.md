@@ -3,7 +3,7 @@ to SQL-file (on container stop) and creates Metabase H2 database from SQL-file (
 
 This allows to save the Metabase H2 database SQL-file to Git, versioning changes and restore the database from SQL-file.
 
-If you like the idea of xxh click ⭐ on the repo and stay tuned.
+If you like the idea click ⭐ on the repo and stay tuned.
 
 ## Run container
 ```shell script
