@@ -1,9 +1,15 @@
-**metabase-sql-wrapper** is a docker-container based on Metabase container that automatically saves Metabase H2 database
+<p align="center">
+<b>metabase-sql-wrapper</b> is a docker-container based on Metabase container that automatically saves Metabase H2 database
 to SQL-file (on container stop) and creates Metabase H2 database from SQL-file (on container start if the database doesn't exists). 
+</p>
 
+<p align="center">
 This allows to save the Metabase H2 database SQL-file to Git, versioning changes and restore the database from SQL-file.
+</p>
 
+<p align="center">
 If you like the idea click ⭐ on the repo and stay tuned.
+</p>
 
 ## Run container
 ```shell script
