@@ -20,7 +20,7 @@ docker-compose up
 
 ## How it works
 
-1. `docker-compose.yml` file has environment variables:
+1. [`docker-compose.yml`](https://github.com/anki-code/metabase-sql-wrapper/blob/master/docker-compose.yml) file has environment variables:
 
     ```shell script
     MB_DB_FILE: /data/metabase
