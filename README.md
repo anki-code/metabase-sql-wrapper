@@ -1,6 +1,6 @@
 <p align="center">
 <b>metabase-sql-wrapper</b> is a docker-container based on Metabase container<br> that automatically saves Metabase H2 database
-to SQL-file (on stop)<br> and creates Metabase H2 database from SQL-file (on start if the database doesn't exists). 
+to SQL-file (on docker stop)<br> and creates Metabase H2 database from SQL-file (on docker start if the database doesn't exists). 
 </p>
 
 <p align="center">
