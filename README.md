@@ -28,7 +28,7 @@ docker-compose up
     MB_DB_SAVE_TO_SQL_FILE: /data/metabase.db.sql  # (optional) used to save SQL when container was stopped
     ```
 
-2. `docker-compose up` runs `run.xsh` with [xonsh shell](https://xon.sh/contents.html) wrapper that catches 
+2. `docker-compose up` runs `run.xsh` with [xonsh shell](https://xon.sh/) wrapper that catches 
 the docker signals and environment variables and do saving or creating the Metabase DB after stopping 
 or before starting the container.
 
