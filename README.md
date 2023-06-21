@@ -43,7 +43,7 @@ This way you can run container, save your queries to Metabase, stop the containe
 ## Cleaning the database before commit to Git
 
 By default Metabase writes logs and history to the database. To clean this before commit to Git you can 
-use the `metabase-db-clean.sql` script:
+use the [`metabase-db-clean.sql`](https://github.com/anki-code/metabase-sql-wrapper/blob/473f3fd23829216cc4384df3bbbda5a3dcd7eec6/metabase-db-clean.sql) script:
 ```bash
 java -cp metabase.jar org.h2.tools.RunScript -url jdbc:h2:./metabase.db -script /path/to/repository/metabase-db-clean.sql
 ```
